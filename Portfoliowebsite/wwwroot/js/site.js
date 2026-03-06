@@ -8,8 +8,6 @@ function setupValidation() {
     const email = document.getElementById('Email');
     const name = document.getElementById('Name');
     const msg = document.getElementById('Message');
-    const status = document.getElementById('liveStatus');
-
 
     const echo = (id, value) => {
         document.getElementById(id).innerHTML = `\n <span>Probleem met: ${value}</span>\n `;
@@ -38,8 +36,6 @@ function setupValidation() {
                     echo('msgErr', el.value);
                 }
             }
-
-            status.textContent = 'Er is clientside validatie uitgevoerd';
         });
     });
 
