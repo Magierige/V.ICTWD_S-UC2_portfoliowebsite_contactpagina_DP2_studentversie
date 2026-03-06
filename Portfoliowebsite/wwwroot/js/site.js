@@ -1,4 +1,4 @@
-﻿window.addEventListener('contextmenu', e => e.preventDefault()); 
+﻿window.addEventListener('contextmenu', e => e.preventDefault());
 
 window.addEventListener('keydown', e => {
     if (e.key === 'Tab') {
@@ -23,14 +23,28 @@ function setupValidation() {
         document.getElementById(id).innerHTML = `\n <span>Probleem met: ${value}</span>\n `;
     };
 
+    const reset = (id) => {
+        document.getElementById(id).innerHTML = ` `;
+    }
+
     [email, name, msg].forEach(el => {
         el.addEventListener('input', () => {
-            if (el === email && !naiveEmailCheck(el.value)) {
-                echo('emailErr', el.value);
-            } else if (el === name && el.value.length < 2) {
-                echo('nameErr', el.value);
-            } else if (el === msg && el.value.length < 5) {
-                echo('msgErr', el.value);
+
+            if (el === email) {
+                reset("emailErr")
+                if (!naiveEmailCheck(el.value)) {
+                    echo('emailErr', el.value);
+                }
+            } else if (el === name) {
+                reset("nameErr")
+                if (el.value.length < 2) {
+                    echo('nameErr', el.value);
+                }
+            } else if (el === msg) {
+                reset("msgErr")
+                if (el.value.length < 5) {
+                    echo('msgErr', el.value);
+                }
             }
 
             status.textContent = 'Er is clientside validatie uitgevoerd';
