@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Portfoliowebsite.Models;
 using Portfoliowebsite.Services;
 
 namespace Portfoliowebsite.Controllers
@@ -9,16 +10,32 @@ namespace Portfoliowebsite.Controllers
         private readonly IEmailSender _email;
         public ContactController(IEmailSender email) => _email = email;
 
-        public IActionResult Index() => View();
+        public IActionResult Index()
+        {
+            return View(new ContactModel()); 
+        }
 
         [HttpPost]
-        public async Task<IActionResult> Index(string Name, string Email, string Subject, string Message)
+        public async Task<IActionResult> Index(ContactModel model)
         {
-            await _email.SendAsync(Name, Email, Subject, Message);
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            if (!string.IsNullOrEmpty(model.website))
+            {
+                return BadRequest("Ongeldige aanvraag");
+            }
+            await _email.SendAsync(
+                model.Name!, 
+                model.Email!, 
+                model.Subject!, 
+                model.Message!
+            );
 
-            TempData["ThanksName"] = Name;
-            TempData["ThanksEmail"] = Email;
-            TempData["ThanksMessage"] = Message;
+            TempData["ThanksName"] = model.Name;
+            TempData["ThanksEmail"] = model.Email;
+            TempData["ThanksMessage"] = model.Message;
 
             return RedirectToAction(nameof(Thanks));
         }
@@ -27,5 +44,6 @@ namespace Portfoliowebsite.Controllers
         {
             return View();
         }
+
     }
 }

@@ -12,7 +12,7 @@ function setupValidation() {
     let errors = [0, 0, 0]
 
     const echo = (id, value) => {
-        document.getElementById(id).innerHTML = `\n <span>Probleem met: ${value}</span>\n `;
+        //document.getElementById(id).innerHTML = `\n <span>Probleem met: ${value}</span>\n `;
     };
 
     const reset = (id) => {

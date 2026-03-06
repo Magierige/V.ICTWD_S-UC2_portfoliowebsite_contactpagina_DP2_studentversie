@@ -15,7 +15,7 @@ namespace Portfoliowebsite.Services
             var smtp = new SmtpClient(_config["Smtp:Host"], int.Parse(_config["Smtp:Port"]))
             {
                 EnableSsl = false,
-                Credentials = new NetworkCredential(_config["Smtp:Username"], _config["Smtp:Password"]) // TODO: vervang met je eigen mailtrap credentials
+                Credentials = new NetworkCredential(_config["Smtp:Username"], _config["Smtp:Password"]) 
             };
 
             var mail = new MailMessage();

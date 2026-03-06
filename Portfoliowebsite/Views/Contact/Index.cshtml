@@ -1,30 +1,32 @@
-﻿@{
+﻿@model ContactModel
+@{
     ViewData["Title"] = "Contact";
 }
 
 <h1>Contact</h1>
 
 <form id="contactForm" asp-action="Index" method="post" novalidate aria-describedby="formInfo">
-    <p id="formInfo">Velden gemarkeerd met een * zijn verplicht.</p>
+    <p id="formInfo">alle velden zijn verplicht.</p>
     @Html.AntiForgeryToken()
     <div class="hp">
         <label for="website">Laat dit veld leeg</label>
         <input type="text" id="website" name="website" value="" />
     </div>
-        <label for="Name">Naam *</label>
-        <input id="Name" name="Name" placeholder="Naam" required aria-required="true"/>
-        <span id="nameErr" class="error" aria-live="polite"></span>
+        <label for="Name" asp-for="Name"></label>
+        <input id="Name" asp-for="Name" name="Name" placeholder="Naam" required aria-required="true"/>
+        <span id="nameErr" asp-validation-for="Name" class="error" aria-live="polite"></span>
 
-        <label for="EmailX">E-mail *</label>
-        <input id="Email" name="Email" placeholder="naam@domein.nl" required aria-required="true"/>
-        <span id="emailErr" class="error" aria-live="polite"></span>
+        <label for="Email" asp-for="Email"></label>
+        <input id="Email" asp-for="Email" name="Email" placeholder="naam@domein.nl" required aria-required="true"/>
+        <span id="emailErr" asp-validation-for="Email" class="error" aria-live="polite"></span>
 
-        <label for="Subject">Onderwerp </label>
-        <input id="Subject" name="Subject" placeholder="Onderwerp" />
-        
-        <label for="Message">Bericht *</label> 
-        <textarea id="Message" name="Message" rows="5" placeholder="Je bericht" required aria-required="true"></textarea>
-        <span id="msgErr" class="error" aria-live="polite"></span>
+        <label for="Subject" asp-for="Subject"></label>
+        <input id="Subject" asp-for="Subject" name="Subject" placeholder="Onderwerp" />
+        <span id="subjectErr" asp-validation-for="Subject" class="error" aria-live="polite"></span>
+
+        <label for="Message" asp-for="Message"></label> 
+        <textarea id="Message" asp-for="Message" name="Message" rows="5" placeholder="Je bericht" required aria-required="true"></textarea>
+        <span id="msgErr" asp-validation-for="Message" class="error" aria-live="polite"></span>
 
     <button class="send-button" role="button" onclick="document.getElementById('contactForm').submit()">
         Versturen
